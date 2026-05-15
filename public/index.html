@@ -717,7 +717,7 @@
     const num  = rollCall.legislationNumber || '';
     if (!type || !num) return null;
 
-    billCategoryCache[key] = fetch('http://localhost:3000/api/bill/119/' + type + '/' + num)
+    billCategoryCache[key] = fetch('/api/bill?congress=119&type=' + type + '&number=' + num)
       .then(r => r.json())
       .then(d => {
         const rawPolicyArea = d.bill?.policyArea?.name || '';
@@ -902,7 +902,7 @@
     const session  = rollCall.session  || 1;
 
     try {
-      const res  = await fetch('http://localhost:3000/api/rollcall/' + congress + '/' + session + '/' + rollNum + '/members');
+      const res  = await fetch('/api/rollcall?congress=' + congress + '&session=' + session + '&rollNumber=' + rollNum);
       const data = await res.json();
       console.log('members response:', data);
 
@@ -942,7 +942,7 @@
     const errorEl   = document.getElementById('error');
 
     try {
-      const res  = await fetch('http://localhost:3000/api/rollcalls');
+      const res  = await fetch('/api/rollcalls');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
 
@@ -969,3 +969,4 @@
 </script>
 </body>
 </html>
+
